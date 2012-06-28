@@ -27,7 +27,5 @@
   "optionalDependencies": {
     "npmlog": ""
   },
-  "engines": {
-    "node": "*"
-  }
+  "license": "BSD"
 }
