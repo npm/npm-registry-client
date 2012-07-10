@@ -12,7 +12,7 @@ try {
   npmlog = require("npmlog")
 } catch (er) {
   npmlog = { error: noop, warn: noop, info: noop,
-             verbose: noop, silly: noop, http: silly,
+             verbose: noop, silly: noop, http: noop,
              pause: noop, resume: noop }
 }
 
