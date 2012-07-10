@@ -6,6 +6,7 @@ module.exports = RegClient
 var fs = require('fs')
 , url = require('url')
 , path = require('path')
+, CouchLogin = require('couch-login')
 , npmlog
 
 try {
@@ -53,6 +54,14 @@ function RegClient (options) {
       var a = this.username + ":" + this.password
       this.auth = new Buffer(a, "utf8").toString("base64")
     }
+  }
+
+  if (this.auth && !this.alwaysAuth) {
+    // if we're always authing, then we just send the
+    // user/pass on every thing.  otherwise, create a
+    // session, and use that.
+    this.token = options.token
+    this.couchLogin = new CouchLogin(this.registry, this.token)
   }
 
   this.email = options.email || null
