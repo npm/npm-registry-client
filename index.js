@@ -24,6 +24,9 @@ function RegClient (options) {
   if (!registry.protocol) throw new Error(
     'Invalid registry: ' + registry.url)
   this.registry = registry.href
+  if (this.registry.slice(-1) !== '/') {
+    this.registry += '/'
+  }
 
   this.retries = options.retries || 2
   this.retryFactor = options.retryFactor || 10
