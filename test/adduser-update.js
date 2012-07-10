@@ -31,6 +31,21 @@ tap.test("update a user acct", function (t) {
     res.statusCode = 409
     res.json({error: "conflict"})
   })
+  
+  server.expect("POST", "/_session", function (req, res) {
+    t.equal(req.method, "POST")
+    res.statusCode = 200
+    res.setHeader("set-cookie", 
+      ["AuthSession=ZmZsb3Jlczo0RkZCNzVGOTpvDOKn9OWD1zyvMMNy3vagv6FCWQ; " +
+       "Expires=" + new Date((new Date()).getTime() + 60000)])
+    res.json({})
+  })
+  
+  server.expect("PUT", "/-/user/org.couchdb.user:username", function (req, res) {
+    t.equal(req.method, "PUT")
+    res.statusCode = 409
+    res.json({error: "conflict"})
+  })
 
   server.expect("GET", "/-/user/org.couchdb.user:username", function (req, res) {
     t.equal(req.method, "GET")
