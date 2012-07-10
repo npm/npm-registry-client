@@ -44,7 +44,17 @@ function RegClient (options) {
     a = a.split(":")
     this.username = a.shift()
     this.password = a.join(":")
+  } else {
+    this.username = options.username
+    this.password = options.password
+
+    // if username and password are set, but auth isn't, use them.
+    if (this.username && this.password) {
+      var a = this.username + ":" + this.password
+      this.auth = new Buffer(a, "utf8").toString("base64")
+    }
   }
+
   this.email = options.email || null
   this.defaultTag = options.tag || "latest"
 
