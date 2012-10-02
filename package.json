@@ -13,7 +13,7 @@
   "dependencies": {
     "request": "~2.9.202",
     "graceful-fs": "~1.1.8",
-    "semver": "~1.0.14",
+    "semver": "~1.1.0",
     "slide": "~1.1.3",
     "chownr": "0",
     "mkdirp": "~0.3.3",
