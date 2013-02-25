@@ -62,6 +62,15 @@ function RegClient (conf) {
     this.couchLogin.ca = this.conf.get('ca')
   }
 
+  var keyPath = this.conf.get('key')
+  var certPath = this.conf.get('cert')
+  if(keyPath && certPath){
+    var key = fs.readFileSync(keyPath,'utf8').toString('ascii')
+    var cert = fs.readFileSync(certPath,'utf8').toString('ascii')
+    this.conf.set('key',key)
+    this.conf.set('cert',cert)
+  }
+  
   this.log = conf.log || conf.get('log') || npmlog
 }
 
