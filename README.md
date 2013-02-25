@@ -34,6 +34,8 @@ also be accepted.
 * `tag` {String} The default tag to use when publishing new packages.
   Default = `"latest"`
 * `ca` {String} Cerficate signing authority certificates to trust.
+* `cert` {String} Path to client certificate for HTTPS requests.
+* `key` {String} Path to client key for HTTPS requests.
 * `strict-ssl` {Boolean} Whether or not to be strict with SSL
   certificates.  Default = `true`
 * `user-agent` {String} User agent header to send.  Default =
