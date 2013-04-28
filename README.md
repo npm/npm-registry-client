@@ -82,6 +82,15 @@ around this. one.
 
 Add a user account to the registry, or verify the credentials.
 
+# client.deprecate(name, version, message, cb)
+
+* `name` {String} The package name
+* `version` {String} Semver version range
+* `message` {String} The message to use as a deprecation warning
+* `cb` {Function}
+
+Deprecate a version of a package in the registry.
+
 # client.get(url, [timeout], [nofollow], [staleOk], cb)
 
 * `url` {String} The url path to fetch
