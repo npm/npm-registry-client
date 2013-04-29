@@ -2,7 +2,7 @@
   "author": "Isaac Z. Schlueter <i@izs.me> (http://blog.izs.me/)",
   "name": "npm-registry-client",
   "description": "Client for the npm registry",
-  "version": "0.2.21",
+  "version": "0.2.22",
   "repository": {
     "url": "git://github.com/isaacs/npm-registry-client"
   },
