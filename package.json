@@ -11,7 +11,7 @@
     "test": "tap test/*.js"
   },
   "dependencies": {
-    "request": "~2.16",
+    "request": "~2.20.0",
     "graceful-fs": "~1.2.0",
     "semver": "~1.1.0",
     "slide": "~1.1.3",
