@@ -19,7 +19,8 @@
     "mkdirp": "~0.3.3",
     "rimraf": "~2",
     "retry": "0.6.0",
-    "couch-login": "~0.1.15"
+    "couch-login": "~0.1.15",
+    "lockfile": "~0.3.2"
   },
   "devDependencies": {
     "tap": ""
