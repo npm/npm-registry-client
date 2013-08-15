@@ -94,11 +94,10 @@ Add a user account to the registry, or verify the credentials.
 Fetches data from the registry via a GET request, saving it in
 the cache folder with the ETag.
 
-# client.publish(data, tarball, [readme], cb)
+# client.publish(data, tarball, cb)
 
 * `data` {Object} Package data
 * `tarball` {String | Stream} Filename or stream of the package tarball
-* `readme` {String} Contents of the README markdown file
 * `cb` {Function}
 
 Publish a package to the registry.
