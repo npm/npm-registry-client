@@ -85,6 +85,13 @@ around this. one.
 
 Add a user account to the registry, or verify the credentials.
 
+# client.bugs(name, cb)
+
+* `name` {String} the name of the package
+* `cb` {Function}
+
+Get the url for bugs of a package
+
 # client.get(url, [timeout], [nofollow], [staleOk], cb)
 
 * `url` {String} The url path to fetch
