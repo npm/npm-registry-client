@@ -13,7 +13,8 @@ try {
 } catch (er) {
   npmlog = { error: noop, warn: noop, info: noop,
              verbose: noop, silly: noop, http: noop,
-             pause: noop, resume: noop }
+             pause: noop, resume: noop,
+             enableColor: noop, disableColor: noop }
 }
 
 function noop () {}
@@ -63,7 +64,17 @@ function RegClient (conf) {
     this.couchLogin.key = this.conf.get('key')
   }
 
-  this.log = conf.log || conf.get('log') || npmlog
+  var log = this.log = conf.log || conf.get('log') || npmlog
+
+  // inherit settings from parent npm
+  log.level = conf.get("loglevel")
+  log.heading = conf.get("heading") || "npm-registry-client"
+  log.stream = conf.get("logstream")
+
+  switch (conf.get("color")) {
+    case "always": log.enableColor(); break
+    case false: log.disableColor(); break
+  }
 }
 
 require('fs').readdirSync(__dirname + "/lib").forEach(function (f) {
