@@ -1,15 +1,13 @@
+var common = require("./lib/common.js")
 var tap = require('tap')
 var server = require('./fixtures/server.js')
-var RC = require('../')
 var pkg = { _id: 'some-package@1.2.3',
             name: 'some-package',
             version: '1.2.3' }
-var client = new RC({
+var client = common.freshClient({
     'fetch-retries': 6
   , 'fetch-retry-mintimeout': 10
-  , 'fetch-retry-maxtimeout': 100
-  , cache: __dirname + '/fixtures/cache'
-  , registry: 'http://localhost:' + server.port })
+  , 'fetch-retry-maxtimeout': 100 })
 
 tap.test('create new user account', function (t) {
   // first time, return a 408

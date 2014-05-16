@@ -1,10 +1,7 @@
+var common = require("./lib/common.js")
 var tap = require('tap')
 var server = require('./fixtures/server.js')
-var RC = require('../')
-var rimraf = require("rimraf")
-var client = new RC({
-    cache: __dirname + '/fixtures/cache'
-  , registry: 'http://localhost:' + server.port })
+var client = common.freshClient()
 var us = require('./fixtures/underscore/1.3.3/cache.json')
 var usroot = require("./fixtures/underscore/cache.json")
 

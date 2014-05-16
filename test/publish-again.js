@@ -1,15 +1,13 @@
+var common = require("./lib/common.js")
 var tap = require('tap')
 var server = require('./fixtures/server.js')
-var RC = require('../')
-var client = new RC(
-  { cache: __dirname + '/fixtures/cache'
-  , registry: 'http://localhost:' + server.port
-  , username: "username"
-  , password: "password"
-  , email: "i@izs.me"
-  , _auth: new Buffer("username:password").toString('base64')
-  , "always-auth": true
-  })
+var client = common.freshClient({
+  username: "username",
+  password: "password",
+  email: "i@izs.me",
+  _auth: new Buffer("username:password").toString('base64'),
+  "always-auth": true
+})
 
 var fs = require("fs")
 

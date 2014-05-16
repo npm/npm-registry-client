@@ -9,7 +9,6 @@ module.exports = server
 
 server._expect = {}
 
-var expect = {}
 function handler (req, res) {
   req.connection.setTimeout(1000)
 

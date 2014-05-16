@@ -1,9 +1,7 @@
+var common = require("./lib/common.js")
 var tap = require('tap')
 var server = require('./fixtures/server.js')
-var RC = require('../')
-var client = new RC({
-    cache: __dirname + '/fixtures/cache'
-  , registry: 'http://localhost:' + server.port })
+var client = common.freshClient()
 
 var userdata =
 { name: 'username',

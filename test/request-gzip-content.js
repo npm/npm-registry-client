@@ -1,7 +1,8 @@
+var common = require("./lib/common.js")
 var zlib = require('zlib')
 var tap = require('tap')
 var server = require('./fixtures/server.js')
-var RC = require('../')
+
 var pkg = {
   _id: 'some-package-gzip@1.2.3',
   name: 'some-package-gzip',
@@ -9,12 +10,10 @@ var pkg = {
 }
 
 zlib.gzip(JSON.stringify(pkg), function (err, pkgGzip) {
-  var client = new RC({
-      cache: __dirname + '/fixtures/cache'
-    , 'fetch-retries': 1
+  var client = common.freshClient({
+      'fetch-retries': 1
     , 'fetch-retry-mintimeout': 10
-    , 'fetch-retry-maxtimeout': 100
-    , registry: 'http://localhost:' + server.port })
+    , 'fetch-retry-maxtimeout': 100 })
 
   tap.test('request gzip package content', function (t) {
     server.expect('GET', '/some-package-gzip/1.2.3', function (req, res) {
