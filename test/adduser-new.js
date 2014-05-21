@@ -12,13 +12,8 @@ var userdata =
   date: '2012-06-07T04:11:21.591Z' }
 , password = "password"
 , username = "username"
-, crypto = require("crypto")
 , SD = require('string_decoder').StringDecoder
-, decoder = new SD
-
-function sha (s) {
-  return crypto.createHash("sha1").update(s).digest("hex")
-}
+, decoder = new SD()
 
 tap.test("create new user account", function (t) {
   server.expect("/-/user/org.couchdb.user:username", function (req, res) {
@@ -39,7 +34,7 @@ tap.test("create new user account", function (t) {
     })
   })
 
-  client.adduser(username, password, "i@izs.me", function (er, data, raw, res) {
+  client.adduser(username, password, "i@izs.me", function (er, data) {
     if (er) throw er
     t.deepEqual(data, { created: true })
     t.end()

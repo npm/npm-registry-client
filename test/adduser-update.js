@@ -14,14 +14,9 @@ var userdata =
 
 , password = "password"
 , username = "username"
-, crypto = require("crypto")
 , SD = require('string_decoder').StringDecoder
-, decoder = new SD
+, decoder = new SD()
 
-
-function sha (s) {
-  return crypto.createHash("sha1").update(s).digest("hex")
-}
 
 tap.test("update a user acct", function (t) {
   server.expect("PUT", "/-/user/org.couchdb.user:username", function (req, res) {
@@ -54,9 +49,7 @@ tap.test("update a user acct", function (t) {
     })
   })
 
-
-
-  client.adduser(username, password, "i@izs.me", function (er, data, raw, res) {
+  client.adduser(username, password, "i@izs.me", function (er, data) {
     if (er) throw er
     t.deepEqual(data, { created: true })
     t.end()
