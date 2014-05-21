@@ -1,16 +1,16 @@
-var common = require("./lib/common.js")
 var tap = require("tap")
 
-var server = require("./fixtures/server.js")
-var cache = require('./fixtures/underscore/cache.json')
-
+var server = require("./lib/server.js")
+var common = require("./lib/common.js")
 var client = common.freshClient({
   username      : "othiym23",
   password      : "password",
   email         : "ogd@aoaioxxysz.net",
-  _auth         : new Buffer("username  : password").toString('base64'),
+  _auth         : new Buffer("username  : password").toString("base64"),
   "always-auth" : true
 })
+
+var cache = require("./fixtures/underscore/cache.json")
 
 var REV = "/-rev/72-47f2986bfd8e8b55068b204588bbf484"
 var VERSION = "1.3.2"

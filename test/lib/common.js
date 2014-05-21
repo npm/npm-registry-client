@@ -1,5 +1,5 @@
 var resolve = require("path").resolve
-var server = require('../fixtures/server.js')
+var server = require('./server.js')
 var RC = require('../../')
 
 module.exports = {
@@ -9,6 +9,7 @@ module.exports = {
     config.registry = 'http://localhost:' + server.port
 
     var client = new RC(config)
+    server.log = client.log
     client.log.level = 'error'
 
     return client

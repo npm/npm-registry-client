@@ -1,9 +1,10 @@
-var common = require("./lib/common.js")
 var tap = require("tap")
 var Readable = require('stream').Readable
 var inherits = require('util').inherits
 
-var server = require("./fixtures/server.js")
+var common = require("./lib/common.js")
+var server = require("./lib/server.js")
+
 var cache = require('./fixtures/underscore/cache.json')
 
 var client = common.freshClient({

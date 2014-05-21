@@ -1,20 +1,21 @@
+var tap = require("tap")
+
+var server = require("./lib/server.js")
 var common = require("./lib/common.js")
-var tap = require('tap')
-var server = require('./fixtures/server.js')
 var client = common.freshClient()
 
 var userdata =
-{ name: 'username',
-  email: 'i@izs.me',
-  _id: 'org.couchdb.user:username',
-  type: 'user',
+{ name: "username",
+  email: "i@izs.me",
+  _id: "org.couchdb.user:username",
+  type: "user",
   roles: [],
   _rev: "1-15aac515ac515aac515aac515aac5125"
 }
 
 , password = "password"
 , username = "username"
-, SD = require('string_decoder').StringDecoder
+, SD = require("string_decoder").StringDecoder
 , decoder = new SD()
 
 
