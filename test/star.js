@@ -1,0 +1,60 @@
+var common = require("./lib/common.js")
+var tap = require("tap")
+
+var server = require("./fixtures/server.js")
+var cache = require("./fixtures/underscore/cache.json")
+
+var client = common.freshClient({
+  username      : "othiym23",
+  password      : "password",
+  email         : "ogd@aoaioxxysz.net",
+  _auth         : new Buffer("username  : password").toString("base64"),
+  "always-auth" : true
+})
+
+var DEP_USER = "othiym23"
+
+tap.test("star a package", function (t) {
+  server.expect("GET", "/underscore?write=true", function (req, res) {
+    t.equal(req.method, "GET")
+
+    res.json(cache)
+  })
+
+  server.expect("PUT", "/underscore", function (req, res) {
+    t.equal(req.method, "PUT")
+
+    var b = ""
+    req.setEncoding("utf8")
+    req.on("data", function (d) {
+      b += d
+    })
+
+    req.on("end", function () {
+      var updated = JSON.parse(b)
+
+      var already  = [
+        "vesln", "mvolkmann", "lancehunt", "mikl", "linus", "vasc", "bat",
+        "dmalam", "mbrevoort", "danielr", "rsimoes", "thlorenz"
+      ]
+      for (var i = 0; i < already.length; i++) {
+        var current = already[i]
+        t.ok(
+          updated.users[current],
+          current + " still likes this package"
+        )
+      }
+      t.ok(updated.users[DEP_USER], "user is in the starred list")
+
+      res.statusCode = 201
+      res.json({starred:true})
+    })
+  })
+
+  client.star("underscore", true, function (error, data) {
+    t.notOk(error, "no errors")
+    t.ok(data.starred, "was starred")
+
+    t.end()
+  })
+})
