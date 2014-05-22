@@ -24,7 +24,7 @@ zlib.gzip(JSON.stringify(pkg), function (err, pkgGzip) {
       res.end(pkgGzip)
     })
 
-    client.get("/some-package-gzip/1.2.3", function (er, data) {
+    client.get("http://localhost:1337/some-package-gzip/1.2.3", function (er, data) {
       if (er) throw er
       t.deepEqual(data, pkg)
       t.end()
@@ -39,7 +39,7 @@ zlib.gzip(JSON.stringify(pkg), function (err, pkgGzip) {
       res.end(new Buffer("wrong gzip content"))
     })
 
-    client.get("/some-package-gzip-error/1.2.3", function (er) {
+    client.get("http://localhost:1337/some-package-gzip-error/1.2.3", function (er) {
       t.ok(er)
       t.end()
     })

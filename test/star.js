@@ -51,7 +51,7 @@ tap.test("star a package", function (t) {
     })
   })
 
-  client.star("underscore", true, function (error, data) {
+  client.star("http://localhost:1337/underscore", true, function (error, data) {
     t.notOk(error, "no errors")
     t.ok(data.starred, "was starred")
 

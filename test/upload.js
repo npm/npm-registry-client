@@ -1,23 +1,23 @@
 var tap = require("tap")
-var Readable = require('stream').Readable
-var inherits = require('util').inherits
+var Readable = require("stream").Readable
+var inherits = require("util").inherits
 
 var common = require("./lib/common.js")
 var server = require("./lib/server.js")
 
-var cache = require('./fixtures/underscore/cache.json')
+var cache = require("./fixtures/underscore/cache.json")
 
 var client = common.freshClient({
   username      : "othiym23",
   password      : "password",
   email         : "ogd@aoaioxxysz.net",
-  _auth         : new Buffer("username  : password").toString('base64'),
+  _auth         : new Buffer("username  : password").toString("base64"),
   "always-auth" : true
 })
 
 function OneA() {
   Readable.call(this)
-  this.push('A')
+  this.push("A")
   this.push(null)
 }
 inherits(OneA, Readable)
@@ -29,7 +29,7 @@ tap.test("unpublish a package", function (t) {
     res.json(cache)
   })
 
-  client.upload("underscore", new OneA(), "daedabeefa", true, function (error) {
+  client.upload("http://localhost:1337/underscore", new OneA(), "daedabeefa", true, function (error) {
     t.notOk(error, "no errors")
 
     t.end()

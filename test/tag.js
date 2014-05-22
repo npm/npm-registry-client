@@ -30,7 +30,7 @@ tap.test("tag a package", function (t) {
     })
   })
 
-  client.tag("underscore", {"1.3.2":{}}, "not-lodash", function (error, data) {
+  client.tag("http://localhost:1337/underscore", {"1.3.2":{}}, "not-lodash", function (error, data) {
     t.notOk(error, "no errors")
     t.ok(data.tagged, "was tagged")
 

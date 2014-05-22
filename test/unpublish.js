@@ -51,7 +51,7 @@ tap.test("unpublish a package", function (t) {
     res.json({unpublished:true})
   })
 
-  client.unpublish("underscore", VERSION, function (error) {
+  client.unpublish("http://localhost:1337/underscore", VERSION, function (error) {
     t.notOk(error, "no errors")
 
     t.end()

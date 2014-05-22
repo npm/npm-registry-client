@@ -17,11 +17,11 @@ tap.test("basic request", function (t) {
   })
 
   t.plan(2)
-  client.get("/underscore/1.3.3", function (er, data) {
+  client.get("http://localhost:1337/underscore/1.3.3", function (er, data) {
     t.deepEqual(data, us)
   })
 
-  client.get("/underscore", function (er, data) {
+  client.get("http://localhost:1337/underscore", function (er, data) {
     t.deepEqual(data, usroot)
   })
 })

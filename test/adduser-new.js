@@ -4,15 +4,16 @@ var server = require("./lib/server.js")
 var common = require("./lib/common.js")
 var client = common.freshClient()
 
-var userdata =
-{ name: "username",
-  email: "i@izs.me",
+var password = "password"
+, username = "username"
+, email = "i@izs.me"
+, userdata = {
+  name: username,
+  email: email,
   _id: "org.couchdb.user:username",
   type: "user",
   roles: [],
   date: "2012-06-07T04:11:21.591Z" }
-, password = "password"
-, username = "username"
 , SD = require("string_decoder").StringDecoder
 , decoder = new SD()
 
@@ -35,7 +36,7 @@ tap.test("create new user account", function (t) {
     })
   })
 
-  client.adduser(username, password, "i@izs.me", function (er, data) {
+  client.adduser("http://localhost:1337/", username, password, email, function (er, data) {
     if (er) throw er
     t.deepEqual(data, { created: true })
     t.end()

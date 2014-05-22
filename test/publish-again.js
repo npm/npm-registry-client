@@ -71,7 +71,7 @@ tap.test("publish again", function (t) {
   var tarball = require.resolve("../package.json")
   var pd = fs.readFileSync(tarball, "base64")
   var pkg = require("../package.json")
-  client.publish(pkg, tarball, function (er, data) {
+  client.publish("http://localhost:1337/", pkg, tarball, function (er, data) {
     if (er) throw er
     t.deepEqual(data, { created: true })
     t.end()
