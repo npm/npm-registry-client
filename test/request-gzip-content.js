@@ -9,6 +9,8 @@ var client = common.freshClient({
   "fetch-retry-maxtimeout" : 100
 })
 
+var TEST_URL = "http://localhost:1337/some-package-gzip/1.2.3"
+
 var pkg = {
   _id: "some-package-gzip@1.2.3",
   name: "some-package-gzip",
@@ -24,7 +26,7 @@ zlib.gzip(JSON.stringify(pkg), function (err, pkgGzip) {
       res.end(pkgGzip)
     })
 
-    client.get("http://localhost:1337/some-package-gzip/1.2.3", function (er, data) {
+    client.get(TEST_URL, null, function (er, data) {
       if (er) throw er
       t.deepEqual(data, pkg)
       t.end()
@@ -39,7 +41,7 @@ zlib.gzip(JSON.stringify(pkg), function (err, pkgGzip) {
       res.end(new Buffer("wrong gzip content"))
     })
 
-    client.get("http://localhost:1337/some-package-gzip-error/1.2.3", function (er) {
+    client.get(TEST_URL, null, function (er) {
       t.ok(er)
       t.end()
     })
