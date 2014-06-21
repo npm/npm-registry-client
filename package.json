@@ -16,7 +16,6 @@
     "mkdirp": "~0.3.3",
     "normalize-package-data": "git://github.com/npm/normalize-package-data#othiym23/scoped",
     "npm-cache-filename": "^1.0.0",
-    "npmconf": "git://github.com/npm/npmconf.git#othiym23/new-credentials",
     "request": "2 >=2.25.0",
     "retry": "0.6.0",
     "rimraf": "~2",
