@@ -14,6 +14,7 @@
     "chownr": "0",
     "graceful-fs": "^3.0.0",
     "mkdirp": "~0.3.3",
+    "normalize-package-data": "^0.4.0",
     "npm-cache-filename": "^1.0.0",
     "request": "2 >=2.25.0",
     "retry": "0.6.0",
