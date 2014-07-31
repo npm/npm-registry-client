@@ -27,5 +27,5 @@
   "optionalDependencies": {
     "npmlog": ""
   },
-  "license": "BSD"
+  "license": "ISC"
 }
