@@ -1,14 +1,25 @@
+var resolve = require("path").resolve
+var createReadStream = require("graceful-fs").createReadStream
+var readFileSync = require("graceful-fs").readFileSync
+
 var tap = require("tap")
+var cat = require("concat-stream")
 
 var server = require("./lib/server.js")
 var common = require("./lib/common.js")
 
-tap.test("fetch encounters 404", function (t) {
+var tgz = resolve(__dirname, "./fixtures/underscore/1.3.3/package.tgz")
+
+tap.test("basic fetch", function (t) {
   server.expect("/underscore/-/underscore-1.3.3.tgz", function (req, res) {
     t.equal(req.method, "GET", "got expected method")
 
-    res.writeHead(404)
-    res.end()
+    res.writeHead(200, {
+      "content-type"     : "application/x-tar",
+      "content-encoding" : "gzip"
+    })
+
+    createReadStream(tgz).pipe(res)
   })
 
   var client = common.freshClient()
@@ -16,12 +27,18 @@ tap.test("fetch encounters 404", function (t) {
     "http://localhost:1337/underscore/-/underscore-1.3.3.tgz",
     null,
     function (er, res) {
-      t.ok(er, "got an error")
-      t.equal(er.message, "fetch failed with status code 404", "got expected message")
+      t.ifError(er, "loaded successfully")
 
-      t.notOk(res, "didn't get a response")
+      var sink = cat(function (data) {
+        t.deepEqual(data, readFileSync(tgz))
+        t.end()
+      })
 
-      t.end()
+      res.on("error", function (error) {
+        t.ifError(error, "no errors on stream")
+      })
+
+      res.pipe(sink)
     }
   )
 })
