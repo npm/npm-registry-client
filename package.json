@@ -25,10 +25,14 @@
   },
   "devDependencies": {
     "concat-stream": "^1.4.6",
+    "npmconf": "^2.1.0",
     "tap": ""
   },
   "optionalDependencies": {
     "npmlog": ""
+  },
+  "peerDependencies": {
+    "npmconf": "^2.1.0"
   },
   "license": "ISC"
 }
