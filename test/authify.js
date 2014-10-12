@@ -48,3 +48,7 @@ noAuthifyError('authify true with bearer token', {
 noAuthifyError('authify true with path in URL', {
   path: '/somepkg1042'
 })
+
+noAuthifyError('authify true with querystring in URL', {
+  path: '/somepkg1042?write=true'
+})
