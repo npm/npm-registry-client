@@ -31,8 +31,5 @@
   "optionalDependencies": {
     "npmlog": ""
   },
-  "peerDependencies": {
-    "npmconf": "^2.1.0"
-  },
   "license": "ISC"
 }
