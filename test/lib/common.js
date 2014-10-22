@@ -2,23 +2,30 @@ var resolve = require("path").resolve
 
 var server = require("./server.js")
 var RC = require("../../")
-var toNerfDart = require("../../lib/util/nerf-dart.js")
+var nerfGun = require("nerf-gun")
 
 var REGISTRY = "http://localhost:" + server.port
 
 module.exports = {
   port : server.port,
   registry : REGISTRY,
+  nerfedObject : function (uri, obj) {
+    var prefix = nerfGun(uri) + ":"
+    return Object.keys(obj).reduce(function (acc, kv) {
+      acc[prefix + kv] = obj[kv]
+      return acc
+    }, {})
+  },
   freshClient : function freshClient(config) {
     config = config || {}
     config.cache = resolve(__dirname, "../fixtures/cache")
-    config.registry = REGISTRY
+    config.registry = config.registry || REGISTRY
     var container = {
       get: function (k) { return config[k] },
       set: function (k, v) { config[k] = v },
       del: function (k) { delete config[k] },
       getCredentialsByURI: function(uri) {
-        var nerfed = toNerfDart(uri)
+        var nerfed = nerfGun(uri)
         var c = {scope : nerfed}
 
         if (this.get(nerfed + ":_authToken")) {
@@ -50,7 +57,7 @@ module.exports = {
         return c
       },
       setCredentialsByURI: function (uri, c) {
-        var nerfed = toNerfDart(uri)
+        var nerfed = nerfGun(uri)
 
         if (c.token) {
           this.set(nerfed + ":_authToken", c.token, "user")
