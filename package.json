@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "concat-stream": "^1.4.6",
+    "nerf-gun": "^1.0.0",
     "npmconf": "^2.1.0",
     "tap": ""
   },
