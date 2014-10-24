@@ -5,14 +5,13 @@ var fs = require("fs")
 var server = require("./lib/server.js")
 var common = require("./lib/common.js")
 
-var nerfed = "//localhost:" + server.port + "/:"
+var credentials = {
+  username : "username",
+  password : "%1234@asdf%",
+  email : "ogd@aoaioxxysz.net"
+}
 
-var configuration = {}
-configuration[nerfed + "username"]  = "username"
-configuration[nerfed + "_password"] = new Buffer("%1234@asdf%").toString("base64")
-configuration[nerfed + "email"]     = "ogd@aoaioxxysz.net"
-
-var client = common.freshClient(configuration)
+var client = common.freshClient()
 
 var _auth = new Buffer("username:%1234@asdf%").toString("base64")
 
@@ -49,7 +48,7 @@ tap.test("publish", function (t) {
     })
   })
 
-  client.publish(common.registry, pkg, tarball, function (er, data) {
+  client.publish(common.registry, pkg, credentials, tarball, function (er, data) {
     if (er) throw er
     t.deepEqual(data, { created: true })
     t.end()

@@ -3,12 +3,9 @@ var tap = require("tap")
 var server = require("./lib/server.js")
 var common = require("./lib/common.js")
 
-var nerfed = "//localhost:" + server.port + "/:"
+var credentials = { token : "of-glad-tidings" }
 
-var configuration = {}
-configuration[nerfed + "_authToken"]  = "of-glad-tidings"
-
-var client = common.freshClient(configuration)
+var client = common.freshClient()
 
 var cache = require("./fixtures/@npm/npm-registry-client/cache.json")
 
@@ -51,9 +48,14 @@ tap.test("unpublish a package", function (t) {
     res.json({unpublished:true})
   })
 
-  client.unpublish("http://localhost:1337/@npm%2fnpm-registry-client", VERSION, function (error) {
-    t.ifError(error, "no errors")
+  client.unpublish(
+    "http://localhost:1337/@npm%2fnpm-registry-client",
+    VERSION,
+    credentials,
+    function (error) {
+      t.ifError(error, "no errors")
 
-    t.end()
-  })
+      t.end()
+    }
+  )
 })

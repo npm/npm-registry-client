@@ -5,14 +5,13 @@ var common = require("./lib/common.js")
 
 var DEP_USER = "username"
 
-var nerfed = "//localhost:" + server.port + "/:"
+var credentials = {
+  username : DEP_USER,
+  password : "%1234@asdf%",
+  email : "i@izs.me"
+}
 
-var configuration = {}
-configuration[nerfed + "username"]  = DEP_USER
-configuration[nerfed + "_password"] = new Buffer("%1234@asdf%").toString("base64")
-configuration[nerfed + "email"]     = "i@izs.me"
-
-var client = common.freshClient(configuration)
+var client = common.freshClient()
 
 var cache = require("./fixtures/underscore/cache.json")
 
@@ -53,7 +52,7 @@ tap.test("star a package", function (t) {
     })
   })
 
-  client.star("http://localhost:1337/underscore", true, function (error, data) {
+  client.star("http://localhost:1337/underscore", true, credentials, function (error, data) {
     t.ifError(error, "no errors")
     t.ok(data.starred, "was starred")
 

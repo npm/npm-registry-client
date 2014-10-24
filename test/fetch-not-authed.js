@@ -23,17 +23,18 @@ tap.test("basic fetch with scoped always-auth disabled", function (t) {
     createReadStream(tgz).pipe(res)
   })
 
-  var nerfed = "//localhost:" + server.port + "/:"
-  var configuration = {}
-  configuration[nerfed + "username"]    = "username"
-  configuration[nerfed + "_password"]   = new Buffer("%1234@asdf%").toString("base64")
-  configuration[nerfed + "email"]       = "i@izs.me"
-  configuration[nerfed + "always-auth"] = false
+  var credentials = {
+    username : "username",
+    password : "%1234@asdf%",
+    email : "i@izs.me",
+    alwaysAuth : false
+  }
 
-  var client = common.freshClient(configuration)
+  var client = common.freshClient()
   client.fetch(
     "http://localhost:1337/underscore/-/underscore-1.3.3.tgz",
     null,
+    credentials,
     function (er, res) {
       t.ifError(er, "loaded successfully")
 

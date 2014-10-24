@@ -14,6 +14,7 @@ var cache = require("./fixtures/underscore/cache.json")
 
 var VERSION = "1.3.2"
 var MESSAGE = "uhhh"
+var CREDENTIALS = { token : "beefeddead" }
 
 tap.test("deprecate a package", function (t) {
   server.expect("GET", "/underscore?write=true", function (req, res) {
@@ -57,10 +58,16 @@ tap.test("deprecate a package", function (t) {
     })
   })
 
-  client.deprecate(common.registry + "/underscore", VERSION, MESSAGE, function (er, data) {
-    t.ifError(er)
-    t.ok(data.deprecated, "was deprecated")
+  client.deprecate(
+    common.registry + "/underscore",
+    VERSION,
+    MESSAGE,
+    CREDENTIALS,
+    function (er, data) {
+      t.ifError(er)
+      t.ok(data.deprecated, "was deprecated")
 
-    t.end()
-  })
+      t.end()
+    }
+  )
 })

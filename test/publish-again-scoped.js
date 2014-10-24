@@ -4,14 +4,14 @@ var fs = require("fs")
 var server = require("./lib/server.js")
 var common = require("./lib/common.js")
 
-var nerfed = "//localhost:" + server.port + "/:"
+var credentials = {
+  username : "username",
+  password : "%1234@asdf%",
+  email : "i@izs.me",
+  alwaysAuth : true
+}
 
-var configuration = {}
-configuration[nerfed + "username"]  = "username"
-configuration[nerfed + "_password"] = new Buffer("%1234@asdf%").toString("base64")
-configuration[nerfed + "email"]     = "i@izs.me"
-
-var client = common.freshClient(configuration)
+var client = common.freshClient()
 
 tap.test("publish again", function (t) {
   // not really a tarball, but doesn't matter
@@ -74,7 +74,7 @@ tap.test("publish again", function (t) {
   })
 
   pkg.name = "@npm/npm-registry-client"
-  client.publish("http://localhost:1337/", pkg, tarball, function (er, data) {
+  client.publish("http://localhost:1337/", pkg, credentials, tarball, function (er, data) {
     if (er) throw er
     t.deepEqual(data, { created: true })
     t.end()

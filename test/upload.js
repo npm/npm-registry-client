@@ -7,12 +7,9 @@ var server = require("./lib/server.js")
 
 var cache = require("./fixtures/underscore/cache.json")
 
-var nerfed = "//localhost:" + server.port + "/:"
+var credentials = { token : "of-glad-tidings" }
 
-var configuration = {}
-configuration[nerfed + "_authToken"]  = "of-glad-tidings"
-
-var client = common.freshClient(configuration)
+var client = common.freshClient()
 
 function OneA() {
   Readable.call(this)
@@ -28,9 +25,16 @@ tap.test("uploading a tarball", function (t) {
     res.json(cache)
   })
 
-  client.upload("http://localhost:1337/underscore", new OneA(), "daedabeefa", true, function (error) {
-    t.ifError(error, "no errors")
+  client.upload(
+    "http://localhost:1337/underscore",
+    new OneA(),
+    "daedabeefa",
+    true,
+    credentials,
+    function (error) {
+      t.ifError(error, "no errors")
 
-    t.end()
-  })
+      t.end()
+    }
+  )
 })

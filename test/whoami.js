@@ -3,12 +3,9 @@ var tap = require("tap")
 var server = require("./lib/server.js")
 var common = require("./lib/common.js")
 
-var nerfed = "//localhost:" + server.port + "/:"
+var credentials = { token : "not-bad-meaning-bad-but-bad-meaning-wombat" }
 
-var configuration = {}
-configuration[nerfed + "_authToken"] = "not-bad-meaning-bad-but-bad-meaning-wombat"
-
-var client = common.freshClient(configuration)
+var client = common.freshClient()
 
 var WHOIAM = "wombat"
 
@@ -21,7 +18,7 @@ tap.test("whoami", function (t) {
     res.json({username : WHOIAM})
   })
 
-  client.whoami(common.registry, function (error, wombat) {
+  client.whoami(common.registry, credentials, function (error, wombat) {
     t.ifError(error, "no errors")
     t.equal(wombat, WHOIAM, "im a wombat")
 

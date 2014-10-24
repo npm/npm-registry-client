@@ -63,11 +63,20 @@ also be accepted.
 * `proxy` {URL} The url to proxy requests through.
 * `https-proxy` {URL} The url to proxy https requests through.
   Defaults to be the same as `proxy` if unset.
-* `_auth` {String} The base64-encoded authorization header.
-* `username` `_password` {String} Username/password to use to generate
-  `_auth` if not supplied.
 * `_token` {Object} A token for use with
   [couch-login](https://npmjs.org/package/couch-login)
+
+# Credentials
+
+Many requests to the registry can by authenticated, and require credentials
+for authorization. These credentials always look the same:
+
+* `username` {String}
+* `password` {String}
+* `email` {String}
+* `token` {String} Bearer token (use this *or* the other 3)
+* `alwaysAuth` {Boolean} Whether calls to the target registry are always
+  authed.
 
 # client.request(method, uri, options, cb)
 
@@ -78,6 +87,7 @@ also be accepted.
     that are not Buffers or Streams are encoded as JSON.
   * `etag` {String} The cached ETag
   * `follow` {Boolean} Follow 302/301 responses (defaults to true)
+  * `auth` {Credentials}
 * `cb` {Function}
   * `error` {Error | null}
   * `data` {Object} the parsed data object
@@ -87,21 +97,24 @@ also be accepted.
 Make a request to the registry.  All the other methods are wrappers around
 `request`.
 
-# client.adduser(base, username, password, email, cb)
+# client.adduser(base, auth, cb)
 
 * `base` {String} Base registry URL
-* `username` {String}
-* `password` {String}
-* `email` {String}
+* `auth` {Credentials}
 * `cb` {Function}
+  * `error` {Error | null}
+  * `data` {Object} the parsed data object
+  * `raw` {String} the json
+  * `res` {Response Object} response from couch
 
 Add a user account to the registry, or verify the credentials.
 
-# client.deprecate(uri, version, message, cb)
+# client.deprecate(uri, version, message, credentials, cb)
 
 * `uri` {String} Full registry URI for the deprecated package
 * `version` {String} Semver version range
 * `message` {String} The message to use as a deprecation warning
+* `credentials` {Credentials}
 * `cb` {Function}
 
 Deprecate a version of a package in the registry.
@@ -121,14 +134,16 @@ Get the url for bugs of a package
   * `follow` {Boolean} Follow 302/301 responses (defaults to true)
   * `staleOk` {Boolean} If there's cached data available, then return that
     to the callback quickly, and update the cache the background.
+* `cb` {Function}
 
 Fetches data from the registry via a GET request, saving it in the cache folder
 with the ETag.
 
-# client.publish(uri, data, tarball, cb)
+# client.publish(uri, data, credentials, tarball, cb)
 
 * `uri` {String} The registry URI to publish to
 * `data` {Object} Package data
+* `credentials` {Credentials}
 * `tarball` {String | Stream} Filename or stream of the package tarball
 * `cb` {Function}
 
@@ -137,10 +152,11 @@ Publish a package to the registry.
 Note that this does not create the tarball from a folder.  However, it can
 accept a gzipped tar stream or a filename to a tarball.
 
-# client.star(uri, starred, cb)
+# client.star(uri, starred, credentials, cb)
 
 * `uri` {String} The complete registry URI to star
 * `starred` {Boolean} True to star the package, false to unstar it.
+* `credentials` {Credentials}
 * `cb` {Function}
 
 Star or unstar a package.
@@ -156,32 +172,35 @@ package, though other writes do require that the user be the package owner.
 
 View your own or another user's starred packages.
 
-# client.tag(uri, version, tag, cb)
+# client.tag(uri, version, tag, credentials, cb)
 
 * `uri` {String} The complete registry URI to tag
 * `version` {String} Version to tag
 * `tag` {String} Tag name to apply
+* `credentials` {Credentials}
 * `cb` {Function}
 
 Mark a version in the `dist-tags` hash, so that `pkg@tag` will fetch the
 specified version.
 
-# client.unpublish(uri, [ver], cb)
+# client.unpublish(uri, [ver], credentials, cb)
 
 * `uri` {String} The complete registry URI to unpublish
 * `ver` {String} version to unpublish. Leave blank to unpublish all
   versions.
+* `credentials` {Credentials}
 * `cb` {Function}
 
 Remove a version of a package (or all versions) from the registry.  When the
 last version us unpublished, the entire document is removed from the database.
 
-# client.upload(uri, file, [etag], [nofollow], cb)
+# client.upload(uri, file, [etag], [nofollow], credentials, cb)
 
 * `uri` {String} The complete registry URI to upload to
 * `file` {String | Stream} Either the filename or a readable stream
 * `etag` {String} Cache ETag
 * `nofollow` {Boolean} Do not follow 301/302 responses
+* `credentials` {Credentials}
 * `cb` {Function}
 
 Upload an attachment.  Mostly used by `client.publish()`.

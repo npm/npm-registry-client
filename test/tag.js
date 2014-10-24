@@ -3,14 +3,13 @@ var tap = require("tap")
 var server = require("./lib/server.js")
 var common = require("./lib/common.js")
 
-var nerfed = "//localhost:" + server.port + "/:"
+var credentials = {
+  username : "username",
+  password : "%1234@asdf%",
+  email : "i@izs.me"
+}
 
-var configuration = {}
-configuration[nerfed + "username"]  = "username"
-configuration[nerfed + "_password"] = new Buffer("%1234@asdf%").toString("base64")
-configuration[nerfed + "email"]     = "i@izs.me"
-
-var client = common.freshClient(configuration)
+var client = common.freshClient()
 
 tap.test("tag a package", function (t) {
   server.expect("PUT", "/underscore/not-lodash", function (req, res) {
@@ -32,10 +31,16 @@ tap.test("tag a package", function (t) {
     })
   })
 
-  client.tag("http://localhost:1337/underscore", {"1.3.2":{}}, "not-lodash", function (error, data) {
-    t.ifError(error, "no errors")
-    t.ok(data.tagged, "was tagged")
+  client.tag(
+    "http://localhost:1337/underscore",
+    {"1.3.2":{}},
+    "not-lodash",
+    credentials,
+    function (error, data) {
+      t.ifError(error, "no errors")
+      t.ok(data.tagged, "was tagged")
 
-    t.end()
-  })
+      t.end()
+    }
+  )
 })

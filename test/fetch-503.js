@@ -33,7 +33,8 @@ tap.test("fetch with retry on server error", function (t) {
   client.conf.set("fetch-retry-mintimeout", 100)
   client.fetch(
     "http://localhost:1337/underscore/-/underscore-1.3.3.tgz",
-    {},
+    null,
+    null,
     function (er, res) {
       t.ifError(er, "loaded successfully")
 
