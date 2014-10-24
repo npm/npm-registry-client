@@ -25,4 +25,3 @@ tap.test("get the URL for the bugs page on a package", function (t) {
     t.end()
   })
 })
-
