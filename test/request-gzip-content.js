@@ -28,7 +28,7 @@ zlib.gzip(JSON.stringify(pkg), function (err, pkgGzip) {
       res.end(pkgGzip)
     })
 
-    client.get(TEST_URL, null, function (er, data) {
+    client.get(TEST_URL, {}, function (er, data) {
       if (er) throw er
       t.deepEqual(data, pkg)
       t.end()
@@ -43,7 +43,7 @@ zlib.gzip(JSON.stringify(pkg), function (err, pkgGzip) {
       res.end(new Buffer("wrong gzip content"))
     })
 
-    client.get(TEST_URL, null, function (er) {
+    client.get(TEST_URL, {}, function (er) {
       t.ok(er)
       t.end()
     })

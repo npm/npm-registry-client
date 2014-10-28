@@ -9,7 +9,7 @@ tap.test("basic request", function (t) {
     res.json([])
   })
 
-  client.get("http://localhost:1337/-/all", null, function (er) {
+  client.get("http://localhost:1337/-/all", {}, function (er) {
     t.ifError(er, "no error")
     t.end()
   })

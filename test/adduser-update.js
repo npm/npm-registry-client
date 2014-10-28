@@ -24,6 +24,7 @@ tap.test("update a user acct", function (t) {
     password : password,
     email    : email
   }
+  var params = { auth : auth }
 
   server.expect("PUT", "/-/user/org.couchdb.user:username", function (req, res) {
     t.equal(req.method, "PUT")
@@ -55,9 +56,13 @@ tap.test("update a user acct", function (t) {
     })
   })
 
-  client.adduser("http://localhost:1337/", auth, function (er, data) {
-    if (er) throw er
-    t.deepEqual(data, auth, "got expected auth data")
-    t.end()
-  })
+  client.adduser(
+    "http://localhost:1337/",
+    params,
+    function (er, data) {
+      if (er) throw er
+      t.deepEqual(data, auth, "got expected auth data")
+      t.end()
+    }
+  )
 })

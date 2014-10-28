@@ -4,7 +4,7 @@ var fs = require("fs")
 var server = require("./lib/server.js")
 var common = require("./lib/common.js")
 
-var credentials = {
+var auth = {
   username : "username",
   password : "%1234@asdf%",
   email : "i@izs.me",
@@ -15,8 +15,9 @@ var client = common.freshClient()
 
 tap.test("publish again", function (t) {
   // not really a tarball, but doesn't matter
-  var tarball = require.resolve("../package.json")
-  var pd = fs.readFileSync(tarball, "base64")
+  var bodyPath = require.resolve("../package.json")
+  var tarball = fs.createReadStream(bodyPath, "base64")
+  var pd = fs.readFileSync(bodyPath, "base64")
   var pkg = require("../package.json")
   var lastTime = null
 
@@ -74,7 +75,13 @@ tap.test("publish again", function (t) {
   })
 
   pkg.name = "@npm/npm-registry-client"
-  client.publish("http://localhost:1337/", pkg, credentials, tarball, function (er, data) {
+
+  var params = {
+    metadata : pkg,
+    body : tarball,
+    auth : auth
+  }
+  client.publish("http://localhost:1337/", params, function (er, data) {
     if (er) throw er
     t.deepEqual(data, { created: true })
     t.end()

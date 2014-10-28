@@ -35,7 +35,7 @@ tap.test("basic request", function (t) {
 
   client.get(
     "http://localhost:1337/-/some-package/1.2.3",
-    { follow: false },
+    { follow : false },
     function (er) {
       t.ok(er, "Error must be set")
     }
@@ -43,7 +43,7 @@ tap.test("basic request", function (t) {
 
   client.get(
     "http://localhost:1337/-/some-package/1.2.3",
-    { follow: true },
+    { follow : true },
     function (er, data) {
       t.deepEqual(data, pkg)
     }

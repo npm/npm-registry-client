@@ -23,6 +23,7 @@ tap.test("create new user account", function (t) {
     password : password,
     email    : email
   }
+  var params = { auth : auth }
 
   server.expect("/registry/_design/app/_rewrite/-/user/org.couchdb.user:username", function (req, res) {
     t.equal(req.method, "PUT")
@@ -42,9 +43,13 @@ tap.test("create new user account", function (t) {
     })
   })
 
-  client.adduser("http://localhost:1337/registry/_design/app/_rewrite", auth, function (er, data) {
-    if (er) throw er
-    t.deepEqual(data, auth, "received expected auth data")
-    t.end()
-  })
+  client.adduser(
+    "http://localhost:1337/registry/_design/app/_rewrite",
+    params,
+    function (er, data) {
+      if (er) throw er
+      t.deepEqual(data, auth, "received expected auth data")
+      t.end()
+    }
+  )
 })
