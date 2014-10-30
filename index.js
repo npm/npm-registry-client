@@ -2,13 +2,15 @@
 
 module.exports = RegClient
 
-var url = require('url')
-, npmlog
-, cacheFile = require('npm-cache-filename')
+var join = require("path").join
+  , fs = require("graceful-fs")
+  , cacheFile = require("npm-cache-filename")
 
+var npmlog
 try {
   npmlog = require("npmlog")
-} catch (er) {
+}
+catch (er) {
   npmlog = { error: noop, warn: noop, info: noop,
              verbose: noop, silly: noop, http: noop,
              pause: noop, resume: noop }
@@ -16,42 +18,27 @@ try {
 
 function noop () {}
 
-function RegClient (conf) {
+function RegClient (config) {
   // accept either a plain-jane object, or a npmconf object
   // with a "get" method.
-  if (typeof conf.get !== 'function') {
-    var data = conf
-    conf = { get: function (k) { return data[k] }
-           , set: function (k, v) { data[k] = v }
-           , del: function (k) { delete data[k] } }
-  }
-
-  this.conf = conf
-
-  // if provided, then the registry needs to be a url.
-  // if it's not provided, then we're just using the cache only.
-  var registry = conf.get('registry')
-  if (registry) {
-    registry = url.parse(registry)
-    if (!registry.protocol) throw new Error(
-      'Invalid registry: ' + registry.url)
-    registry = registry.href
-    if (registry.slice(-1) !== '/') {
-      registry += '/'
+  if (typeof config.get !== "function") {
+    var data = config
+    config = {
+      get: function (k) { return data[k] },
+      set: function (k, v) { data[k] = v },
+      del: function (k) { delete data[k] }
     }
-    this.conf.set('registry', registry)
-  } else {
-    registry = null
   }
+  this.conf = config
 
-  this.registry = registry
-
-  if (!conf.get('cache')) throw new Error("Cache dir is required")
-  this.cacheFile = cacheFile(this.conf.get('cache'))
-  this.log = conf.log || conf.get('log') || npmlog
+  if (!this.conf.get("cache")) throw new Error("Cache dir is required")
+  this.cacheFile = cacheFile(this.conf.get("cache"))
+  this.log = this.conf.log || this.conf.get("log") || npmlog
 }
 
-require('fs').readdirSync(__dirname + "/lib").forEach(function (f) {
+fs.readdirSync(join(__dirname, "lib")).forEach(function (f) {
   if (!f.match(/\.js$/)) return
-  RegClient.prototype[f.replace(/\.js$/, '')] = require('./lib/' + f)
+  var name = f.replace(/\.js$/, "")
+              .replace(/-([a-z])/, function (_, l) { return l.toUpperCase() })
+  RegClient.prototype[name] = require(join(__dirname, "lib", f))
 })
