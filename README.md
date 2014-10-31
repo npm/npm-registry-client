@@ -37,10 +37,6 @@ a plain-jane object with the appropriate configs, and it'll shim it
 for you.  Any configuration thingie that has get/set/del methods will
 also be accepted.
 
-* `cache` **Required** {String} Path to the cache folder
-* `always-auth` {Boolean} Auth even for GET requests.
-* `auth` {String} A base64-encoded `username:password`
-* `email` {String} User's email address
 * `tag` {String} The default tag to use when publishing new packages.
   Default = `"latest"`
 * `ca` {String} Cerficate signing authority certificates to trust.

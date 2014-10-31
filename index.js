@@ -4,7 +4,6 @@ module.exports = RegClient
 
 var join = require("path").join
   , fs = require("graceful-fs")
-  , cacheFile = require("npm-cache-filename")
 
 var npmlog
 try {
@@ -31,8 +30,6 @@ function RegClient (config) {
   }
   this.conf = config
 
-  if (!this.conf.get("cache")) throw new Error("Cache dir is required")
-  this.cacheFile = cacheFile(this.conf.get("cache"))
   this.log = this.conf.log || this.conf.get("log") || npmlog
 }
 
