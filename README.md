@@ -68,15 +68,6 @@ for authorization. These credentials always look the same:
 
 Add a user account to the registry, or verify the credentials.
 
-### client.bugs(uri, params, cb)
-
-* `uri` {String} Full registry URI for the package
-* `params` {Object} Object containing per-request properties.
-  * `auth` {Credentials} Optional.
-* `cb` {Function}
-
-Get the URL for bugs from a package's metadata.
-
 ### client.deprecate(uri, params, cb)
 
 * `uri` {String} Full registry URI for the deprecated package.
@@ -212,18 +203,6 @@ around `client.request`.
 
 Fetch a package from a URL, with auth set appropriately if included. Used to
 cache remote tarballs as well as request package tarballs from the registry.
-
-### client.upload(uri, params, cb)
-
-* `uri` {String} The complete registry URI to upload to
-* `params` {Object} Object containing per-request properties.
-  * `body` {Stream} A readable stream containing the package body.
-  * `etag` {String} Cache ETag. Optional.
-  * `follow` {Boolean} Whether to follow 301/302 responses. Optional (default: true).
-  * `auth` {Credentials}
-* `cb` {Function}
-
-Upload an attachment.  Mostly used by `client.publish()`.
 
 # Configuration
 
