@@ -3,9 +3,11 @@ var tap = require("tap")
 var server = require("./lib/server.js")
 var common = require("./lib/common.js")
 var client = common.freshClient({
-  "fetch-retries": 6,
-  "fetch-retry-mintimeout": 10,
-  "fetch-retry-maxtimeout": 100
+  retry : {
+    count      : 6,
+    minTimeout : 10,
+    maxTimeout : 100
+  }
 })
 
 var pkg = {

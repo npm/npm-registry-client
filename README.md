@@ -23,44 +23,9 @@ client.get(uri, params, function (error, data, raw, res) {
 # Registry URLs
 
 The registry calls take either a full URL pointing to a resource in the
-registry, or a base URL for the registry as a whole (for the base URL, any path
-will be ignored). In addition to `http` and `https`, `npm` URLs are allowed.
-`npm` URLs are `https` URLs with the additional restrictions that they will
-always include authorization credentials, and the response is always registry
-metadata (and not tarballs or other attachments).
-
-# Configuration
-
-This program is designed to work with
-[npmconf](https://npmjs.org/package/npmconf), but you can also pass in
-a plain-jane object with the appropriate configs, and it'll shim it
-for you.  Any configuration thingie that has get/set/del methods will
-also be accepted.
-
-* `tag` {String} The default tag to use when publishing new packages.
-  Default = `"latest"`
-* `ca` {String} Cerficate signing authority certificates to trust.
-* `cert` {String} Client certificate (PEM encoded). Enable access
-  to servers that require client certificates
-* `key` {String} Private key (PEM encoded) for client certificate 'cert'
-* `strict-ssl` {Boolean} Whether or not to be strict with SSL
-  certificates.  Default = `true`
-* `user-agent` {String} User agent header to send.  Default =
-  `"node/{process.version} {process.platform} {process.arch}"`
-* `log` {Object} The logger to use.  Defaults to `require("npmlog")` if
-  that works, otherwise logs are disabled.
-* `fetch-retries` {Number} Number of times to retry on GET failures.
-  Default=2
-* `fetch-retry-factor` {Number} `factor` setting for `node-retry`. Default=10
-* `fetch-retry-mintimeout` {Number} `minTimeout` setting for `node-retry`.
-  Default=10000 (10 seconds)
-* `fetch-retry-maxtimeout` {Number} `maxTimeout` setting for `node-retry`.
-  Default=60000 (60 seconds)
-* `proxy` {URL} The url to proxy requests through.
-* `https-proxy` {URL} The url to proxy https requests through.
-  Defaults to be the same as `proxy` if unset.
-* `_token` {Object} A token for use with
-  [couch-login](https://npmjs.org/package/couch-login)
+registry, or a base URL for the registry as a whole (including the registry
+path – but be sure to terminate the path with `/`). `http` and `https` URLs are
+the only ones supported.
 
 ## Using the client
 
@@ -259,3 +224,36 @@ cache remote tarballs as well as request package tarballs from the registry.
 * `cb` {Function}
 
 Upload an attachment.  Mostly used by `client.publish()`.
+
+# Configuration
+
+The client uses its own configuration, which is just passed in as a simple
+nested object. The following are the supported values (with their defaults, if
+any):
+
+* `proxy.http` {URL} The URL to proxy HTTP requests through.
+* `proxy.https` {URL} The URL to proxy HTTPS requests through. Defaults to be
+  the same as `proxy.http` if unset.
+* `proxy.localAddress` {IP} The local address to use on multi-homed systems.
+* `ssl.ca` {String} Cerficate signing authority certificates to trust.
+* `ssl.certificate` {String} Client certificate (PEM encoded). Enable access
+  to servers that require client certificates.
+* `ssl.key` {String} Private key (PEM encoded) for client certificate.
+* `ssl.strict` {Boolean} Whether or not to be strict with SSL certificates.
+  Default = `true`
+* `retry.count` {Number} Number of times to retry on GET failures. Default = 2.
+* `retry.factor` {Number} `factor` setting for `node-retry`. Default = 10.
+* `retry.minTimeout` {Number} `minTimeout` setting for `node-retry`.
+  Default = 10000 (10 seconds)
+* `retry.maxTimeout` {Number} `maxTimeout` setting for `node-retry`.
+  Default = 60000 (60 seconds)
+* `userAgent` {String} User agent header to send. Default =
+  `"node/{process.version}"`
+* `log` {Object} The logger to use.  Defaults to `require("npmlog")` if
+  that works, otherwise logs are disabled.
+* `defaultTag` {String} The default tag to use when publishing new packages.
+  Default = `"latest"`
+* `couchToken` {Object} A token for use with
+  [couch-login](https://npmjs.org/package/couch-login).
+* `sessionToken` {string} A random identifier for this set of client requests.
+  Default = 8 random hexadecimal bytes.

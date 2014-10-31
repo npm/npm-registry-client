@@ -4,9 +4,11 @@ var tap = require("tap")
 var server = require("./lib/server.js")
 var common = require("./lib/common.js")
 var client = common.freshClient({
-  "fetch-retries"          : 1,
-  "fetch-retry-mintimeout" : 10,
-  "fetch-retry-maxtimeout" : 100
+  retry : {
+    count : 1,
+    minTimeout : 10,
+    maxTimeout : 100
+  }
 })
 
 var TEST_URL = "http://localhost:1337/some-package-gzip/1.2.3"

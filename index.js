@@ -18,19 +18,27 @@ catch (er) {
 function noop () {}
 
 function RegClient (config) {
-  // accept either a plain-jane object, or a npmconf object
-  // with a "get" method.
-  if (typeof config.get !== "function") {
-    var data = config
-    config = {
-      get: function (k) { return data[k] },
-      set: function (k, v) { data[k] = v },
-      del: function (k) { delete data[k] }
-    }
-  }
-  this.conf = config
+  this.config = Object.create(config || {})
 
-  this.log = this.conf.log || this.conf.get("log") || npmlog
+  this.config.proxy = this.config.proxy || {}
+  if (!this.config.proxy.https && this.config.proxy.http) {
+    this.config.proxy.https = this.config.proxy.http
+  }
+
+  this.config.ssl = this.config.ssl || {}
+  if (this.config.ssl.strict === undefined) this.config.ssl.strict = true
+
+  this.config.retry = this.config.retry || {}
+  if (!this.config.retry.count) this.config.retry.count = 2
+  if (!this.config.retry.factor) this.config.retry.factor = 10
+  if (!this.config.retry.minTimeout) this.config.retry.minTimeout = 10000
+  if (!this.config.retry.maxTimeout) this.config.retry.maxTimeout = 60000
+
+  this.config.userAgent = this.config.userAgent || "node/" + process.version
+  this.config.defaultTag = this.config.defaultTag || "latest"
+
+  this.log = this.config.log || npmlog
+  delete this.config.log
 }
 
 fs.readdirSync(join(__dirname, "lib")).forEach(function (f) {
