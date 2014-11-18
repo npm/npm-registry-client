@@ -24,6 +24,7 @@
     "slide": "^1.1.3"
   },
   "devDependencies": {
+    "negotiator": "^0.4.9",
     "tap": ""
   },
   "optionalDependencies": {
