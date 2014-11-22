@@ -30,9 +30,9 @@ function RegClient (config) {
 
   this.config.retry = this.config.retry || {}
   if (typeof this.config.retry.retries !== "number") this.config.retry.retries = 2
-  if (!this.config.retry.factor) this.config.retry.factor = 10
-  if (!this.config.retry.minTimeout) this.config.retry.minTimeout = 10000
-  if (!this.config.retry.maxTimeout) this.config.retry.maxTimeout = 60000
+  if (typeof this.config.retry.factor !== "number") this.config.retry.factor = 10
+  if (typeof this.config.retry.minTimeout !== "number") this.config.retry.minTimeout = 10000
+  if (typeof this.config.retry.maxTimeout !== "number") this.config.retry.maxTimeout = 60000
 
   this.config.userAgent = this.config.userAgent || "node/" + process.version
   this.config.defaultTag = this.config.defaultTag || "latest"
