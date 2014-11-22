@@ -29,7 +29,7 @@ function RegClient (config) {
   if (this.config.ssl.strict === undefined) this.config.ssl.strict = true
 
   this.config.retry = this.config.retry || {}
-  if (!this.config.retry.count) this.config.retry.count = 2
+  if (typeof this.config.retry.retries !== "number") this.config.retry.retries = 2
   if (!this.config.retry.factor) this.config.retry.factor = 10
   if (!this.config.retry.minTimeout) this.config.retry.minTimeout = 10000
   if (!this.config.retry.maxTimeout) this.config.retry.maxTimeout = 60000
