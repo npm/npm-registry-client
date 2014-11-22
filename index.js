@@ -10,9 +10,16 @@ try {
   npmlog = require("npmlog")
 }
 catch (er) {
-  npmlog = { error: noop, warn: noop, info: noop,
-             verbose: noop, silly: noop, http: noop,
-             pause: noop, resume: noop }
+  npmlog = {
+    error   : noop,
+    warn    : noop,
+    info    : noop,
+    verbose : noop,
+    silly   : noop,
+    http    : noop,
+    pause   : noop,
+    resume  : noop
+  }
 }
 
 function noop () {}
