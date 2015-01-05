@@ -159,10 +159,15 @@ test("run request through its paces", function (t) {
   })
 
   var defaults = {}
-  client.request(common.registry+"/request-defaults", defaults, function (er, data) {
-    t.ifError(er, "call worked")
-    t.deepEquals(data, { fetched : "defaults" }, "confirmed defaults work")
-  })
+  client.request(
+    common.registry+"/request-defaults",
+    defaults,
+    function (er, data, raw, response) {
+      t.ifError(er, "call worked")
+      t.deepEquals(data, { fetched : "defaults" }, "confirmed defaults work")
+      t.equal(response.headers.connection, "keep-alive", "keep-alive set")
+    }
+  )
 
   var etagged = { etag : "test-etag" }
   client.request(common.registry+"/etag", etagged, function (er, data) {
