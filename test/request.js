@@ -81,7 +81,7 @@ test("request call contract", function (t) {
 })
 
 test("run request through its paces", function (t) {
-  t.plan(24)
+  t.plan(25)
 
   server.expect("/request-defaults", function (req, res) {
     t.equal(req.method, "GET", "uses GET by default")
@@ -92,6 +92,14 @@ test("run request through its paces", function (t) {
       res.statusCode = 200
       res.json({ fetched : "defaults" })
     }))
+  })
+
+  server.expect("/last-modified", function (req, res) {
+    t.equal(req.headers["if-modified-since"], "test-last-modified",
+      "got test if-modified-since")
+
+    res.statusCode = 200
+    res.json({ fetched : "last-modified" })
   })
 
   server.expect("/etag", function (req, res) {
@@ -162,6 +170,12 @@ test("run request through its paces", function (t) {
   client.request(common.registry+"/request-defaults", defaults, function (er, data) {
     t.ifError(er, "call worked")
     t.deepEquals(data, { fetched : "defaults" }, "confirmed defaults work")
+  })
+
+  var lastModified = { lastModified : "test-last-modified" }
+  client.request(common.registry+"/last-modified", lastModified, function (er, data) {
+    t.ifError(er, "call worked")
+    t.deepEquals(data, { fetched : "last-modified" }, "last-modified request sent")
   })
 
   var etagged = { etag : "test-etag" }
