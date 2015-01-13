@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "negotiator": "^0.4.9",
+    "nock": "^0.56.0",
     "tap": ""
   },
   "optionalDependencies": {
