@@ -55,6 +55,19 @@ for authorization. These credentials always look the same:
 
 ## API
 
+### client.access(uri, params, cb)
+
+* `uri` {String} Registry URL for the package's access API endpoint.
+  Looks like `/-/package/<package name>/access`.
+* `params` {Object} Object containing per-request properties.
+  * `access` {String} New access level for the package. Can be either
+    `public` or `restricted`. Registry will raise an error if trying
+    to change the access level of an unscoped package.
+  * `auth` {Credentials}
+
+Set the access level for scoped packages. For now, there are only two
+access levels: "public" and "restricted".
+
 ### client.adduser(uri, params, cb)
 
 * `uri` {String} Base registry URL.
