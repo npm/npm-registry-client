@@ -92,6 +92,67 @@ Add a user account to the registry, or verify the credentials.
 
 Deprecate a version of a package in the registry.
 
+### client.distTags.fetch(uri, params, cb)
+
+* `uri` {String} Base URL for the registry.
+* `params` {Object} Object containing per-request properties.
+  * `package` {String} Name of the package.
+  * `auth` {Credentials}
+* `cb` {Function}
+
+Fetch all of the `dist-tags` for the named package.
+
+### client.distTags.add(uri, params, cb)
+
+* `uri` {String} Base URL for the registry.
+* `params` {Object} Object containing per-request properties.
+  * `package` {String} Name of the package.
+  * `distTag` {String} Name of the new `dist-tag`.
+  * `version` {String} Exact version to be mapped to the `dist-tag`.
+  * `auth` {Credentials}
+* `cb` {Function}
+
+Add (or replace) a single dist-tag onto the named package.
+
+### client.distTags.set(uri, params, cb)
+
+* `uri` {String} Base URL for the registry.
+* `params` {Object} Object containing per-request properties.
+  * `package` {String} Name of the package.
+  * `distTags` {Object} Object containing a map from tag names to package
+     versions.
+  * `auth` {Credentials}
+* `cb` {Function}
+
+Set all of the `dist-tags` for the named package at once, creating any
+`dist-tags` that do not already exit. Any `dist-tags` not included in the
+`distTags` map will be removed.
+
+### client.distTags.update(uri, params, cb)
+
+* `uri` {String} Base URL for the registry.
+* `params` {Object} Object containing per-request properties.
+  * `package` {String} Name of the package.
+  * `distTags` {Object} Object containing a map from tag names to package
+     versions.
+  * `auth` {Credentials}
+* `cb` {Function}
+
+Update the values of multiple `dist-tags`, creating any `dist-tags` that do
+not already exist. Any pre-existing `dist-tags` not included in the `distTags`
+map will be left alone.
+
+### client.distTags.rm(uri, params, cb)
+
+* `uri` {String} Base URL for the registry.
+* `params` {Object} Object containing per-request properties.
+  * `package` {String} Name of the package.
+  * `distTag` {String} Name of the new `dist-tag`.
+  * `auth` {Credentials}
+* `cb` {Function}
+
+Remove a single `dist-tag` from the named package.
+
 ### client.get(uri, params, cb)
 
 * `uri` {String} The complete registry URI to fetch
