@@ -174,6 +174,7 @@ with the ETag or the "Last Modified" timestamp.
 * `uri` {String} The registry URI for the package to publish.
 * `params` {Object} Object containing per-request properties.
   * `metadata` {Object} Package metadata.
+  * `access` {String} Access for the package. Can be `public` or `restricted` (no default).
   * `body` {Stream} Stream of the package body / tarball.
   * `auth` {Credentials}
 * `cb` {Function}
