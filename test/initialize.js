@@ -72,3 +72,20 @@ test("initializing with proxy undefined", function (t) {
   t.notOk("proxy" in options, "proxy can be read from env.PROXY by request")
   t.end()
 })
+
+test("initializing with a certificate should map down to the https agent", function (t) {
+  var certificate = '-----BEGIN CERTIFICATE----- TEST\nTEST -----END CERTIFICATE-----\n'
+  var client = new Client({
+    ssl: {
+      certificate: certificate
+    }
+  })
+  var options = client.initialize(
+    { protocol: "https:" },
+    "GET",
+    "application/json",
+    {}
+  )
+  t.equal(options.agent.options.cert, certificate, "certificate will be saved properly on agent")
+  t.end()
+})
