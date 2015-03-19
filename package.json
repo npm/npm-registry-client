@@ -8,7 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "tap test/*.js"
+    "test": "standard && tap test/*.js"
   },
   "dependencies": {
     "chownr": "0",
@@ -27,6 +27,7 @@
   "devDependencies": {
     "negotiator": "^0.4.9",
     "nock": "^0.56.0",
+    "standard": "^3.2.0",
     "tap": ""
   },
   "optionalDependencies": {
