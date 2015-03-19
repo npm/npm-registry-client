@@ -16,7 +16,7 @@ var client = common.freshClient()
 tap.test("publish again", function (t) {
   // not really a tarball, but doesn't matter
   var bodyPath = require.resolve("../package.json")
-  var tarball = fs.createReadStream(bodyPath, "base64")
+  var tarball = fs.createReadStream(bodyPath)
   var pd = fs.readFileSync(bodyPath, "base64")
   var pkg = require("../package.json")
   var lastTime = null

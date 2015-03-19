@@ -15,7 +15,7 @@ var METADATA  = require("../package.json")
 var ACCESS    = "public"
 // not really a tarball, but doesn't matter
 var BODY_PATH = require.resolve("../package.json")
-var BODY      = createReadStream(BODY_PATH, "base64")
+var BODY      = createReadStream(BODY_PATH)
 var AUTH      = {
   username : USERNAME,
   password : PASSWORD,
