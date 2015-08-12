@@ -81,7 +81,7 @@ test('request call contract', function (t) {
 })
 
 test('run request through its paces', function (t) {
-  t.plan(31)
+  t.plan(34)
 
   server.expect('/request-defaults', function (req, res) {
     t.equal(req.method, 'GET', 'uses GET by default')
@@ -270,6 +270,9 @@ test('run request through its paces', function (t) {
 
   client.request(common.registry + '/not-found-no-body', defaults, function (er) {
     t.equals(er.message, '404 Not Found')
+    t.equals(er.statusCode, 404, 'got back 404 as .statusCode')
+    t.equals(er.code, 'E404', 'got back expected string code')
+    t.notOk(er.pkgid, "no package name returned when there's no body on response")
     t.ok(typeof er !== 'string', "Error shouldn't be returned as string.")
   })
 })
