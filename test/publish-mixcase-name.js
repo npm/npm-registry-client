@@ -86,6 +86,7 @@ tap.test('publish mixcase name', function (t) {
   client.publish('http://localhost:1337/', params, function (er, data) {
     if (er) throw er
     t.deepEqual(data, { created: true })
+    server.close()
     t.end()
   })
 })

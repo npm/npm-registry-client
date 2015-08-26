@@ -27,6 +27,7 @@
   "devDependencies": {
     "negotiator": "^0.4.9",
     "nock": "^0.56.0",
+    "readable-stream": "^2.0.2",
     "standard": "^4.0.0",
     "tap": "^1.2.0"
   },

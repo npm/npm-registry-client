@@ -198,6 +198,7 @@ test('publish', function (t) {
     if (er) throw er
 
     t.deepEqual(data, { created: true })
+    server.close()
     t.end()
   })
 })

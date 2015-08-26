@@ -67,6 +67,7 @@ test('publish-new-mixcase-name', function (t) {
     // TODO: need a test that ensures useful error message
     // t.similar(data.error, /must be lower-case/)
 
+    server.close()
     t.end()
   })
 })

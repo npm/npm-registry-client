@@ -150,6 +150,7 @@ test('deprecate a package', function (t) {
       t.ifError(er)
       t.ok(data.deprecated, 'was deprecated')
 
+      server.close()
       t.end()
     }
   )

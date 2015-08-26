@@ -51,6 +51,7 @@ tap.test('publish', function (t) {
   client.publish(common.registry, params, function (er, data) {
     if (er) throw er
     t.deepEqual(data, { created: true })
+    server.close()
     t.end()
   })
 })
