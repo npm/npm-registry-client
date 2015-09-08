@@ -13,7 +13,7 @@ var auth = {
 
 var client = common.freshClient()
 
-tap.test('publish again', function (t) {
+tap.test('publish mixcase name', function (t) {
   // not really a tarball, but doesn't matter
   var bodyPath = require.resolve('../package.json')
   var tarball = fs.createReadStream(bodyPath)
@@ -21,7 +21,10 @@ tap.test('publish again', function (t) {
   var pkg = require('../package.json')
   var lastTime = null
 
-  server.expect('/npm-registry-client', function (req, res) {
+  // change to mixed case name
+  pkg.name = 'npm-Registry-Client'
+
+  server.expect('/npm-Registry-Client', function (req, res) {
     t.equal(req.method, 'PUT')
     var b = ''
     req.setEncoding('utf8')
@@ -31,7 +34,7 @@ tap.test('publish again', function (t) {
 
     req.on('end', function () {
       var o = lastTime = JSON.parse(b)
-      t.equal(o._id, 'npm-registry-client')
+      t.equal(o._id, 'npm-Registry-Client')
       t.equal(o['dist-tags'].latest, pkg.version)
       t.has(o.versions[pkg.version], pkg)
       t.same(o.maintainers, [ { name: 'username', email: 'i@izs.me' } ])
@@ -42,7 +45,7 @@ tap.test('publish again', function (t) {
     })
   })
 
-  server.expect('/npm-registry-client?write=true', function (req, res) {
+  server.expect('/npm-Registry-Client?write=true', function (req, res) {
     t.equal(req.method, 'GET')
     t.ok(lastTime)
     for (var i in lastTime.versions) {
@@ -55,7 +58,7 @@ tap.test('publish again', function (t) {
     res.json(lastTime)
   })
 
-  server.expect('/npm-registry-client', function (req, res) {
+  server.expect('/npm-Registry-Client', function (req, res) {
     t.equal(req.method, 'PUT')
     t.ok(lastTime)
 
