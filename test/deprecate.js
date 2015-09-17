@@ -150,7 +150,6 @@ test('deprecate a package', function (t) {
       t.ifError(er)
       t.ok(data.deprecated, 'was deprecated')
 
-      server.close()
       t.end()
     }
   )
@@ -208,4 +207,10 @@ test('deprecate a scoped package', function (t) {
       t.end()
     }
   )
+})
+
+test('cleanup', function (t) {
+  server.close()
+  t.ok(true)
+  t.end()
 })
