@@ -277,6 +277,40 @@ test('run request through its paces', function (t) {
   })
 })
 
+test('outputs notice if npm-notice header is set', function (t) {
+  var client = common.freshClient({
+    log: {
+      error: noop,
+      warn: function (prefix, msg) {
+        warnings.push(msg)
+      },
+      info: noop,
+      verbose: noop,
+      silly: noop,
+      http: noop,
+      pause: noop,
+      resume: noop
+    }
+  })
+  var message = 'notice me!'
+  var warnings = []
+
+  function noop () {}
+
+  server.expect('GET', '/npm-notice', function (req, res) {
+    req.pipe(concat(function () {
+      res.statusCode = 200
+      res.setHeader('npm-notice', message)
+      res.end()
+    }))
+  })
+
+  client.request(common.registry + '/npm-notice', {}, function (er) {
+    t.notEqual(warnings.indexOf(message), -1, 'notice not printed')
+    t.end()
+  })
+})
+
 test('cleanup', function (t) {
   server.close()
   t.end()
