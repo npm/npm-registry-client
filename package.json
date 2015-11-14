@@ -15,6 +15,7 @@
     "index.js"
   ],
   "dependencies": {
+    "clone": "^1.0.2",
     "concat-stream": "^1.5.2",
     "graceful-fs": "^4.1.6",
     "normalize-package-data": "~1.0.1 || ^2.0.0",
