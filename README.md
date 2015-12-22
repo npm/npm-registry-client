@@ -312,3 +312,4 @@ any):
   [couch-login](https://npmjs.org/package/couch-login).
 * `sessionToken` {string} A random identifier for this set of client requests.
   Default = 8 random hexadecimal bytes.
+* `timeout` {Number} Number of milliseconds for request timeout. Passed into request library.
