@@ -12,7 +12,7 @@ tap.test('fetch with a 404 response', function (t) {
   })
 
   var client = common.freshClient({
-    timeout: 100,
+    timeout: 25,
     retry: {
       retries: 1,
       minTimeout: 10,

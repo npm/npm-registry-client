@@ -31,6 +31,8 @@ function RegClient (config) {
     this.config.proxy.https = this.config.proxy.http
   }
 
+  if (typeof this.config.timeout !== 'number') this.config.timeout = 10000
+
   this.config.ssl = this.config.ssl || {}
   if (this.config.ssl.strict === undefined) this.config.ssl.strict = true
 
