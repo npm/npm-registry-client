@@ -323,3 +323,6 @@ any):
   the CI environment variable to be set to `true`.  Also accepted are the
   existence of the `JENKINS_URL`, `bamboo.buildKey` and `TDDIUM` environment
   variables.
+* `scope` {String} The scope of the project this command is being run for. This is the
+  top level npm module in which a command was run.
+  Default = none

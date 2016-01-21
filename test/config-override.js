@@ -25,7 +25,8 @@ var config = {
   defaultTag: 'next',
   couchToken: { object: true },
   sessionToken: 'hamchunx',
-  isFromCI: true
+  isFromCI: true,
+  scope: '@test'
 }
 
 test('config defaults', function (t) {
@@ -54,6 +55,7 @@ test('config defaults', function (t) {
   t.ok(client.config.couchToken.object)
   t.equal(client.config.sessionToken, 'hamchunx')
   t.ok(client.config.isFromCI)
+  t.is(client.config.scope, '@test')
 
   t.end()
 })
