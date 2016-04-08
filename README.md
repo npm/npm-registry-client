@@ -169,6 +169,19 @@ Remove a single `dist-tag` from the named package.
 Fetches data from the registry via a GET request, saving it in the cache folder
 with the ETag or the "Last Modified" timestamp.
 
+### client.login(uri, params, cb)
+
+* `uri` {String} Base registry URL.
+* `params` {Object} Object containing per-request properties.
+  * `auth` {Credentials} without email
+* `cb` {Function}
+  * `error` {Error | null}
+  * `data` {Object} the parsed data object
+  * `raw` {String} the json
+  * `res` {Response Object} response from couch
+
+Login to the registry.
+
 ### client.publish(uri, params, cb)
 
 * `uri` {String} The registry URI for the package to publish.
