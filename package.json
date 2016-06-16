@@ -32,7 +32,7 @@
     "tap": "^1.2.0"
   },
   "optionalDependencies": {
-    "npmlog": "~2.0.0 || ~3.0.0"
+    "npmlog": "~2.0.0 || ~3.1.0"
   },
   "license": "ISC"
 }
