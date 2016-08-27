@@ -4,6 +4,9 @@ node_js:
   - "0.10"
   - "0.8"
   - iojs
+  - "4"
+  - "6"
+  - stable
 script: "npm test"
 sudo: false
 before_install:
