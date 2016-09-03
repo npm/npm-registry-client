@@ -26,7 +26,7 @@
     "nock": "^8.0.0",
     "readable-stream": "^2.1.5",
     "rimraf": "^2.5.4",
-    "standard": "^4.0.0",
+    "standard": "^8.0.0",
     "tap": "^7.0.0"
   },
   "optionalDependencies": {

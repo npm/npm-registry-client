@@ -46,7 +46,6 @@ test('streaming fetch', function (t) {
             t.end()
           }
         )
-
       })
 
       res.on('error', function (error) {
