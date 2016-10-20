@@ -38,7 +38,7 @@ Every call to the client follows the same pattern:
 
 ### Credentials
 
-Many requests to the registry can by authenticated, and require credentials
+Many requests to the registry can be authenticated, and require credentials
 for authorization. These credentials always look the same:
 
 * `username` {String}
