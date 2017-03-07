@@ -10,6 +10,10 @@
   "scripts": {
     "test": "standard && tap test/*.js"
   },
+  "files": [
+    "lib",
+    "index.js"
+  ],
   "dependencies": {
     "concat-stream": "^1.5.2",
     "graceful-fs": "^4.1.6",
