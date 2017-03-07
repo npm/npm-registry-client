@@ -27,7 +27,7 @@
     "readable-stream": "^2.1.5",
     "require-inject": "^1.4.0",
     "rimraf": "^2.5.4",
-    "standard": "~8.5.0",
+    "standard": "^9.0.0",
     "tap": "^7.0.0"
   },
   "optionalDependencies": {
