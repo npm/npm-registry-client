@@ -177,6 +177,8 @@ Remove a single `dist-tag` from the named package.
     the callback quickly, and update the cache the background. Optional
     (default: false).
   * `auth` {Credentials} Optional.
+  * `fullMetadata` {Boolean} If true, don't attempt to fetch filtered
+    ("corgi") registry metadata.  (default: false)
 * `cb` {Function}
 
 Fetches data from the registry via a GET request, saving it in the cache folder
