@@ -71,13 +71,13 @@ test('org: ls', function (t) {
     t.equal(req.method, 'GET')
     onJsonReq(req, function () {
       res.statusCode = 200
-      res.json({result: 'anything'})
+      res.json({username: 'role', username2: 'admin'})
     })
   })
 
   client.org('ls', URI, PARAMS, function (err, data) {
     t.same(err, null)
-    t.same(data, {result: 'anything'})
+    t.same(data, {username: 'role', username2: 'admin'})
     t.done()
   })
 })
