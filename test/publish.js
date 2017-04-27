@@ -1,6 +1,9 @@
-var test = require('tap').test
+'use strict'
+
 var crypto = require('crypto')
+var test = require('tap').test
 var fs = require('fs')
+var ssri = require('ssri')
 
 var server = require('./lib/server.js')
 var common = require('./lib/common.js')
@@ -187,7 +190,19 @@ test('publish', function (t) {
       t.same(att.data, pd.toString('base64'))
 
       var hash = crypto.createHash('sha1').update(pd).digest('hex')
-      t.equal(o.versions[METADATA.version].dist.shasum, hash)
+      var integrity = ssri.fromData(pd, {
+        algorithms: ['sha512']
+      })
+      t.equal(
+        o.versions[METADATA.version].dist.shasum,
+        hash,
+        'shasum is the same as generated originally by crypto module'
+      )
+      t.equal(
+        o.versions[METADATA.version].dist.integrity,
+        integrity.toString(),
+        'integrity field is a valid SRI string'
+      )
 
       res.statusCode = 201
       res.json({ created: true })
