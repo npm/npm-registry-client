@@ -74,3 +74,27 @@ test('ping', function (t) {
     t.end()
   })
 })
+
+test('ping 404', function (t) {
+  server.expect('GET', '/-/ping?write=true', function (req, res) {
+    t.equal(req.method, 'GET')
+    res.statusCode = 404
+    res.json({
+      statusCode: 404,
+      error: 'Not Found'
+    })
+  })
+
+  client.ping(common.registry, PARAMS, function (error, found, data, res) {
+    t.same(error.message, 'Not Found : -/ping')
+    var wanted = {
+      statusCode: 404,
+      error: 'Not Found'
+    }
+    t.same(found, wanted)
+    t.same(data, JSON.stringify(wanted))
+    t.same(res.body.toString(), JSON.stringify(wanted))
+    server.close()
+    t.end()
+  })
+})

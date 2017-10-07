@@ -50,9 +50,7 @@ function clientMock (t) {
         t.comment('[http] ' + section + ': ' + [].slice.call(arguments, 1).join(' '))
       }
     },
-    authify: function (alwaysAuth, parsed, headers, auth) {
-      return
-    },
+    authify: function (alwaysAuth, parsed, headers, auth) { },
     initialize: function (parsed, method, accept, headers) {
       return {}
     },
