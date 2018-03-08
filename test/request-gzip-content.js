@@ -1,3 +1,7 @@
+'use strict'
+
+var Buffer = require('safe-buffer').Buffer
+
 var zlib = require('zlib')
 var test = require('tap').test
 
@@ -44,7 +48,7 @@ zlib.gzip(JSON.stringify(pkg), function (err, pkgGzip) {
         res.statusCode = 200
         res.setHeader('Content-Encoding', 'gzip')
         res.setHeader('Content-Type', 'application/json')
-        res.end(new Buffer('wrong gzip content'))
+        res.end(Buffer.from('wrong gzip content'))
       })
     }
 

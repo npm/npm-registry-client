@@ -1,3 +1,7 @@
+'use strict'
+
+var Buffer = require('safe-buffer').Buffer
+
 var test = require('tap').test
 var server = require('./lib/server.js')
 var common = require('./lib/common.js')
@@ -113,12 +117,12 @@ test('if password auth, only sets authorization on put', function (t) {
 
   var starPut = nock('http://localhost:1010', {
     reqheaders: {
-      authorization: 'Basic ' + new Buffer(AUTH.username + ':' +
+      authorization: 'Basic ' + Buffer.from(AUTH.username + ':' +
                                            AUTH.password).toString('base64')
     }
   })
-  .put('/underscore')
-  .reply(200)
+    .put('/underscore')
+    .reply(200)
 
   var params = { starred: STARRED, auth: AUTH }
 
@@ -136,24 +140,24 @@ test('if token auth, sets bearer on get and put', function (t) {
       authorization: 'Bearer foo'
     }
   })
-  .get('/underscore?write=true')
-  .reply(200, {})
+    .get('/underscore?write=true')
+    .reply(200, {})
 
   var getUser = nock('http://localhost:1010', {
     reqheaders: {
       authorization: 'Bearer foo'
     }
   })
-  .get('/-/whoami')
-  .reply(200, { username: 'bcoe' })
+    .get('/-/whoami')
+    .reply(200, { username: 'bcoe' })
 
   var starPut = nock('http://localhost:1010', {
     reqheaders: {
       authorization: 'Bearer foo'
     }
   })
-  .put('/underscore')
-  .reply(200)
+    .put('/underscore')
+    .reply(200)
 
   var params = {
     starred: STARRED,

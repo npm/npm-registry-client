@@ -1,3 +1,7 @@
+'use strict'
+
+var Buffer = require('safe-buffer').Buffer
+
 var tap = require('tap')
 var crypto = require('crypto')
 var fs = require('fs')
@@ -13,7 +17,7 @@ var auth = {
 
 var client = common.freshClient()
 
-var _auth = new Buffer('username:%1234@asdf%').toString('base64')
+var _auth = Buffer.from('username:%1234@asdf%').toString('base64')
 
 tap.test('publish', function (t) {
   // not really a tarball, but doesn't matter

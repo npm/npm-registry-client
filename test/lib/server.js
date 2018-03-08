@@ -1,5 +1,7 @@
 // a fake registry server.
 
+var Buffer = require('safe-buffer').Buffer
+
 var http = require('http')
 var server = http.createServer(handler)
 var port = server.port = process.env.PORT || 1337
@@ -15,7 +17,7 @@ function handler (req, res) {
   // If we got authorization, make sure it's the right password.
   if (req.headers.authorization && req.headers.authorization.match(/^Basic/)) {
     var auth = req.headers.authorization.replace(/^Basic /, '')
-    auth = new Buffer(auth, 'base64').toString('utf8')
+    auth = Buffer.from(auth, 'base64').toString('utf8')
     assert.equal(auth, 'username:%1234@asdf%')
   }
 

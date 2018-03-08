@@ -1,3 +1,7 @@
+'use strict'
+
+var Buffer = require('safe-buffer').Buffer
+
 var Readable = require('readable-stream').Readable
 var inherits = require('util').inherits
 
@@ -224,7 +228,7 @@ test('run request through its paces', function (t) {
 
   var putBuffer = {
     method: 'PUT',
-    body: new Buffer('hi'),
+    body: Buffer.from('hi'),
     auth: AUTH
   }
   client.request(common.registry + '/body-buffer', putBuffer, function (er, data) {
