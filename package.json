@@ -8,7 +8,11 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "standard && tap test/*.js"
+    "prerelease": "npm t",
+    "postrelease": "npm publish && git push --follow-tags",
+    "pretest": "standard",
+    "release": "standard-version -s",
+    "test": "tap --nyc-arg=--all --coverage test/*.js"
   },
   "files": [
     "lib",
@@ -33,6 +37,7 @@
     "require-inject": "^1.4.0",
     "rimraf": "^2.5.4",
     "standard": "^9.0.0",
+    "standard-version": "^4.3.0",
     "tap": "^10.3.0"
   },
   "optionalDependencies": {

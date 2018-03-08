@@ -3,3 +3,4 @@ node_modules
 npm-debug.log
 .eslintrc
 .jshintrc
+.nyc_output
