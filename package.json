@@ -36,9 +36,9 @@
     "readable-stream": "^2.1.5",
     "require-inject": "^1.4.0",
     "rimraf": "^2.5.4",
-    "standard": "^9.0.0",
+    "standard": "^11.0.0",
     "standard-version": "^4.3.0",
-    "tap": "^10.3.0"
+    "tap": "^11.1.2"
   },
   "optionalDependencies": {
     "npmlog": "2 || ^3.1.0 || ^4.0.0"
