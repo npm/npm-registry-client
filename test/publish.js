@@ -8,6 +8,7 @@ var ssri = require('ssri')
 var server = require('./lib/server.js')
 var common = require('./lib/common.js')
 var client = common.freshClient()
+var clone = require('clone')
 
 function nop () {}
 
@@ -145,7 +146,7 @@ test('publish call contract', function (t) {
   )
 
   t.test('malformed semver in publish', function (t) {
-    var metadata = JSON.parse(JSON.stringify(METADATA))
+    var metadata = clone(METADATA)
     metadata.version = '%!@#$'
     var params = {
       metadata: metadata,
