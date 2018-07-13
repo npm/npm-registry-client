@@ -23,7 +23,7 @@ var UNSCOPED = {
 }
 
 var commands = [
-  'public', 'restricted', 'grant', 'revoke', 'ls-packages', 'ls-collaborators'
+  'public', 'restricted', 'grant', 'revoke', 'ls-packages', 'ls-collaborators', '2fa-required', '2fa-not-required'
 ]
 
 test('access public', function (t) {
@@ -40,6 +40,40 @@ test('access public', function (t) {
   client.access('public', URI, params, function (error, data) {
     t.ifError(error, 'no errors')
     t.ok(data.accessChanged, 'access level set')
+    t.end()
+  })
+})
+
+test('access 2fa-required', function (t) {
+  server.expect('POST', '/-/package/%40foo%2Fbar/access', function (req, res) {
+    t.equal(req.method, 'POST', 'requested with POST')
+    onJsonReq(req, function (json) {
+      t.deepEqual(json, { publish_requires_tfa: true }, 'request payload ok')
+      res.statusCode = 200
+      res.json('ok')
+    })
+  })
+  var params = Object.create(PARAMS)
+  params.package = '@foo/bar'
+  client.access('2fa-required', URI, params, function (error, data) {
+    t.ifError(error, 'no errors')
+    t.end()
+  })
+})
+
+test('access 2fa-not-required', function (t) {
+  server.expect('POST', '/-/package/%40foo%2Fbar/access', function (req, res) {
+    t.equal(req.method, 'POST', 'requested with POST')
+    onJsonReq(req, function (json) {
+      t.deepEqual(json, { publish_requires_tfa: false }, 'request payload ok')
+      res.statusCode = 200
+      res.json('ok')
+    })
+  })
+  var params = Object.create(PARAMS)
+  params.package = '@foo/bar'
+  client.access('2fa-not-required', URI, params, function (error, data) {
+    t.ifError(error, 'no errors')
     t.end()
   })
 })
