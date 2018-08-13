@@ -327,7 +327,7 @@ any):
 * `ssl.key` {String} Private key (PEM encoded) for client certificate.
 * `ssl.strict` {Boolean} Whether or not to be strict with SSL certificates.
   Default = `true`
-* `retry.count` {Number} Number of times to retry on GET failures. Default = 2.
+* `retry.retries` {Number} Number of times to retry on GET failures. Default = 2.
 * `retry.factor` {Number} `factor` setting for `node-retry`. Default = 10.
 * `retry.minTimeout` {Number} `minTimeout` setting for `node-retry`.
   Default = 10000 (10 seconds)
