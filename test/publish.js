@@ -145,7 +145,7 @@ test('publish call contract', function (t) {
   )
 
   t.test('malformed semver in publish', function (t) {
-    var metadata = JSON.parse(JSON.stringify(METADATA))
+    var metadata = METADATA === undefined ? undefined : JSON.parse(JSON.stringify(METADATA))
     metadata.version = '%!@#$'
     var params = {
       metadata: metadata,
