@@ -30,8 +30,10 @@ var PARAMS = {
 
 test('publish with a 500 response but no message', function (t) {
   server.expect('/npm-registry-client', function (req, res) {
-    res.statusCode = 500
-    res.json({ success: false })
+    req.on('end', function () {
+      res.statusCode = 500
+      res.json({ success: false })
+    })
   })
 
   client.publish(URI, PARAMS, function (er, data) {
