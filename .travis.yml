@@ -5,7 +5,12 @@ node_js:
   - 10
   - 8
 
-script: "npm test"
+before_install:
+  - npm install -g npm@latest
+  - npm --version
+script:
+  - npm test
+
 sudo: false
 notifications:
     slack: npm-inc:kRqQjto7YbINqHPb1X6nS3g8
